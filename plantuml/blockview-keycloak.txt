@@ -1,0 +1,23 @@
+@startuml
+package "Cooking on Fire" {
+  interface HTTP as H1
+  interface HTTP as H2
+  interface HTTP as H3
+  interface OAuth2 as H4
+  [hapi-fhir-jpaserver-base] -u- H1
+  [cooking-on-fire-backend] -u- H2
+  [cooking-on-fire-frontend]
+  [cooking-on-fire-backend] --> () H1
+  [cooking-on-fire-frontend] --> () H2
+  [cooking-on-fire-backend] -r-> () H3
+  [cooking-on-fire-frontend] -r-> () H4
+  H4 -r- [keycloak]
+  H3 - [elastic-search]
+}
+interface OAuth2 as O2
+[keycloak] -r-> () O2
+O2 - [IAM]
+note right of [IAM]
+  e.g. Google Single Sign-in
+end note
+@enduml
