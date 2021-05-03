@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cook
+
+rectangle "Cooking on Fire - Recipe" {
+  usecase "Select recipe" as UcSelect
+  usecase "<<secondary>>\nAdapt recipe" as UcAdapt
+  usecase "<<secondary>>\nDelete recipe" as UcDelete
+
+  usecase "Capture recipe" as UcCapture
+  usecase "<<secondary>>\nCapture ingredients" as UcIngredients
+  usecase "<<secondary>>\nCapture cooking\n steps" as UcSteps
+  usecase "<<secondary>>\nCapture cooking/\nbaking times" as UcTimes
+
+  usecase "Search recipe" as UcSearch
+}
+
+Cook -- UcSelect
+UcDelete .> UcSelect : <<extends>>
+UcAdapt .> UcSelect : <<extends>>
+
+Cook -- UcCapture
+UcCapture .> UcIngredients : <<include>>
+UcCapture .> UcSteps : <<include>>
+UcCapture .> UcTimes : <<include>>
+
+Cook -- UcSearch
+@enduml
